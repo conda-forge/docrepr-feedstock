@@ -1,5 +1,5 @@
 {% set name = "docrepr" %}
-{% set version = "0.1.1" %}
+{% set version = "0.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,37 +7,47 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d7b27b0105d19267be74ff8048f213b8968ff366ded45357d112ef02e109f715
+  sha256: 3ad62ecdaa0b7ab90dcd9c29abc98cae7d61d09339f18396d4ca5b8ab41c8b90
 
 build:
   noarch: python
   number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - python  >=3.6
     - pip
+    - setuptools >42
   run:
     - python  >=3.6
     - docutils
     - jinja2
-    - sphinx <4
+    - sphinx >1.1
 
 test:
   imports:
     - docrepr
   requires:
     - pip
+    - ipython
+    - matplotlib >=2.2.4
+    - numpy
+    - pytest >=6.0.0
+    - pytest-asyncio
+  source_files:
+    - docrepr/tests
+    - conftest.py
   commands:
     - pip check
+    - pytest --asyncio-mode=auto .
 
 about:
   home: https://github.com/spyder-ide/docrepr
   license: BSD-3-Clause
   license_family: BSD
-  license_file: LICENSE
-  summary: 'Generate rich representations for docstrings'
+  license_file: LICENSE.txt
+  summary: Generate rich representations for docstrings
   dev_url: https://github.com/spyder-ide/docrepr
 
 extra:
