@@ -18,19 +18,26 @@ requirements:
   host:
     - python  >=3.6
     - pip
+    - setuptools >42
   run:
     - python  >=3.6
     - docutils
     - jinja2
-    - sphinx <4
+    - sphinx >1.1
 
 test:
   imports:
     - docrepr
   requires:
     - pip
+    - ipython
+    - matplotlib >=2.2.4
+    - numpy
+    - pytest >=6.0.0
+    - pytest-asyncio
   commands:
     - pip check
+    - {{ PYTHON }} -I -bb -X dev -W error -m pytest --asyncio-mode=auto
 
 about:
   home: https://github.com/spyder-ide/docrepr
