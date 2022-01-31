@@ -35,9 +35,12 @@ test:
     - numpy
     - pytest >=6.0.0
     - pytest-asyncio
+  source_files:
+    - docrepr/tests
+    - conftest.py
   commands:
     - pip check
-    - {{ PYTHON }} -I -bb -X dev -W error -m pytest --asyncio-mode=auto
+    - pytest --asyncio-mode=auto .
 
 about:
   home: https://github.com/spyder-ide/docrepr
